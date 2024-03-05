@@ -1,0 +1,27 @@
+{
+    "name": "elevantsolutions/donor-perfect-api",
+    "description": "A PHP plugin for interacting with the DonorPerfect API",
+    "type": "library",
+    "license": "GPL",
+    "keywords": ["donorperfect", "api", "plugin"],
+    "homepage": "https://github.com/robertDawson2/DonorPerfectApi",
+    "authors": [
+        {
+            "name": "Elevant Solutions, LLC",
+            "email": "support@elevantsolutions.net"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DonorPerfectApi\\": "src/",
+            "DonorPerfectApi\\Types\\": "src/types/"
+        }
+    },
+    "suggest": {
+        "ext-curl": "Required to make cURL requests",
+        "ext-xml": "Required for XML processing"
+    }
+}
