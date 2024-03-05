@@ -3,10 +3,12 @@
 namespace DonorPerfectApi;
 use DonorPerfectApi\Types\DonorUserDefinedFieldType;
 
+require_once dirname(__DIR__) . "/config/config.php";
+
 class DonorPerfectApi
 {
     private $apiKey;
-    private $apiBaseUrl = 'https://www.donorperfect.net/prod/xmlrequest.asp';
+    private $apiBaseUrl = DONORPERFECT_API;
     private $action;
     private $params;
 
@@ -141,7 +143,6 @@ class DonorPerfectApi
             $url = substr($url, 0, -1);
         }
 
-        echo $url . "\n";
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,
