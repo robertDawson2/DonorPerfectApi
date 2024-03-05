@@ -2,7 +2,7 @@
     "name": "elevantsolutions/donor-perfect-api",
     "description": "A PHP plugin for interacting with the DonorPerfect API",
     "type": "library",
-    "license": "GPL",
+    "license": "proprietary",
     "keywords": ["donorperfect", "api", "plugin"],
     "homepage": "https://github.com/robertDawson2/DonorPerfectApi",
     "authors": [
