@@ -1,6 +1,7 @@
 {
     "name": "elevantsolutions/donor-perfect-api",
     "description": "A PHP plugin for interacting with the DonorPerfect API",
+    "version": "1.0.0",
     "type": "library",
     "license": "proprietary",
     "keywords": ["donorperfect", "api", "plugin"],
