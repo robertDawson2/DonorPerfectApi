@@ -58,8 +58,9 @@ class DonorPerfectApi
      * Upsert donor-level user-defined fields.
      *
      * @param int $donorId - id of the donor to update - required for the query to be successful
-     * @param array $fields - array of fields to update
-     * @return bool
+     * @param array $fields - array of fields to update, as a key value pair, based on DP API fields
+     * @return array of successful and fail-state field names, in the format of 
+     * [successes => [a,b,c,..], failures => [d,e,f,...]]
      * 
      * Throws generic exception on api error
      */
@@ -70,11 +71,16 @@ class DonorPerfectApi
         $dudf = new DonorUserDefinedFieldType($fields);
         $this->action = "dp_save_udf_xml";
         $useableData = $dudf->getData();
+
+        // remove donor_id -> we don't need it in the iteration
         unset($useableData['donor_id']);
 
-    $results = array();
+    $results = array('successes' => [], 'failures' => []);
+    // iterate all fields to update, as the endpoint can only do one update at a time
         foreach($useableData as $field => $value) {
             $this->params = ['@matching_id' => $donorId];
+
+            // parse out numeric types where applicable
             if(in_array($field, DonorUserDefinedFieldType::getNumericTypes())) {
                 $this->params['@data_type'] = "N";
                 $this->params['@numeric_value'] = $value;
@@ -85,10 +91,16 @@ class DonorPerfectApi
             $this->params['@field_name'] = $field;
             $this->params['@user_id'] = 'DpApiConnect';
 
-            $results[] = $this->makeApiRequest();
+            // make our request, and build our return structure
+            $result = $this->makeApiRequest();
+            if($result['success']) {
+                $results['successes'][] = $field;
+            } else {
+                $results['failures'][] = $field;
+            }
         }
-        print_r($results);
-        return true;
+
+        return $results;
     }
 
     /**
