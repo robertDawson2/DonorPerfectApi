@@ -5,6 +5,10 @@ use DonorPerfectApi\Types\DonorUserDefinedFieldType;
 
 require_once dirname(__DIR__) . "/config/config.php";
 
+/**
+ * The DonorPerfectApi provides an interface to handle the interactions with 
+ * DonorPerfect's software, utilizing all their API has to offer. 
+ */
 class DonorPerfectApi
 {
     private $apiKey;
@@ -39,21 +43,17 @@ class DonorPerfectApi
      * Get donor information by donor ID.
      *
      * @param int $donorId
-     * @return array|null
+     * @return array
      */
     public function getDonor($donorId)
     {
-        // Implementation to fetch donor information from the DonorPerfect API
-        // Use $this->makeApiRequest() or similar method for making API requests
+        $sql = "SELECT * FROM dp WHERE donor_id = $donorId";
+        return $this->executeDynamicQuery($sql);
+    }
 
-        // Example:
-        // $response = $this->makeApiRequest('GET', 'donors/' . $donorId);
-
-        // Parse and return the response
-        // return json_decode($response, true);
-
-        // For simplicity, return a dummy response
-        return ['id' => $donorId, 'name' => 'John Doe', 'email' => 'john@example.com'];
+    public function getGiftsByDonor($donorId) {
+        $sql = "SELECT * FROM dpgift WHERE donor_id = $donorId";
+        return $this->executeDynamicQuery($sql);
     }
 
     /**
