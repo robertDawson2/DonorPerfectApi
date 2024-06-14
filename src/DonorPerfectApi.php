@@ -34,9 +34,13 @@ class DonorPerfectApi
     }
 
     public function testConnection() {
-        $sql = "SELECT donor_id FROM dp where donor_id = 1";
+        $sql = "SELECT donor_id FROM dp";
         $result = $this->executeDynamicQuery($sql);
-        return $result['success'];
+        if($result['success']) {
+            return true;
+        } else {
+            throw new \Exception("Invalid API Key");
+        }
     }
 
     /**
