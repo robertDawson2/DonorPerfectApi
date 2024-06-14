@@ -37,7 +37,7 @@ class DonorPerfectApi
         $sql = "SELECT donor_id FROM dp";
         $result = $this->executeDynamicQuery($sql);
         if($result['success']) {
-            return true;
+            return sizeof($result);
         } else {
             throw new \Exception("Invalid API Key");
         }
